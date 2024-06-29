@@ -12,4 +12,4 @@ class TestChatbotApp(unittest.TestCase):
     def test_sidebar(self):
         """Test if a single text input exists in the sidebar."""
         at = AppTest.from_file("../sow_generator.py").run()
-        assert len(at.sidebar.text_input) == 2
+        assert len(at.text_input) == 2
