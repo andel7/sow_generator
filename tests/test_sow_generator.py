@@ -1,6 +1,4 @@
 import unittest
-from unittest.mock import patch
-from types import SimpleNamespace
 from streamlit.testing.v1 import AppTest
 
 class TestChatbotApp(unittest.TestCase):
@@ -8,6 +6,7 @@ class TestChatbotApp(unittest.TestCase):
         """Test if the app runs without throwing an exception."""
         at = AppTest.from_file("../sow_generator.py", default_timeout=10).run()
         assert not at.exception
+
 
     def test_sidebar(self):
         """Test if a single text input exists in the sidebar."""
