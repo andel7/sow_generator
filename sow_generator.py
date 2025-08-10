@@ -5,6 +5,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
 
+# Adding comment
 llm = ChatOpenAI(model_name="gpt-4o", temperature=0)
 system = "You are presale engineer with 15 years of experience, working at system integrator company called TeraSky. Your job is to generate Scope of work document that is presented to TeraSky customers. Use professional  and clear language."
 
