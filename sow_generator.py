@@ -3,11 +3,10 @@ from docx import Document
 import re
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
-from langchain.chains import LLMChain
+# from langchain.chains import LLMChain  # Deprecated, using prompt | llm instead
 
-# Adding comment
-llm = ChatOpenAI(model_name="gpt-4o", temperature=0)
-system = "You are presale engineer with 15 years of experience, working at system integrator company called TeraSky. Your job is to generate Scope of work document that is presented to TeraSky customers. Use professional  and clear language."
+llm = ChatOpenAI(model="gpt-4o", temperature=0)
+system = "You are presale engineer with 15 years of experience, working at system integrator company called TeraSky. Your job is to generate Scope of work document that is presented to TeraSky customers. Use professional and clear language."
 
 prompt = ChatPromptTemplate.from_messages(
     [
@@ -21,11 +20,11 @@ prompt = ChatPromptTemplate.from_messages(
 executive_summary_descirption = "The executive summary includes the following: a high-level overview of the project; business and technical drivers for doing the project; and brief description of the customer's business and technical objectives. In addition, we briefly summarize TeraSky professional services to be delivered to meet the customer’s objectives."
 current_challanges_description = "In this part we will describe what is the status on the customer side – system in use, challenges, what is not working well, what we want to improve or allow the customer to achieve."
 proposed_soltion_description = "Describe our proposed solution from a technical architecture perspective.A description of the proposed high-level technical architecture should be included in the Statement of Work. It should address common architectural aspects such as: network infrastructure; data/process flows; software services/components; integration/messaging/middleware; security; deployment models; operations/support models. (As appropriate, based on the type of project)."
-llmchain = LLMChain(llm=llm, prompt=prompt)
+llmchain = prompt | llm
 
 
 def improve_through_agent(current_text, current_context, section_description):
-    improvement = llmchain.run({"input": "You are generating the section of the document called " + current_context + ". This is section description: " + section_description + ". This is the current text that was provided: " + current_text + ". Fix spelling mistakes and rephrase if needed."})
+    improvement = llmchain.invoke({"input": "You are generating the section of the document called " + current_context + ". This is section description: " + section_description + ". This is the current text that was provided: " + current_text + ". Fix spelling mistakes and rephrase if needed."}).content
     return improvement
 
 
